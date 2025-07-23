@@ -459,16 +459,16 @@ var runtimeInitialized = false;
 
 function updateMemoryViews() {
   var b = wasmMemory.buffer;
-  HEAP8 = new Int8Array(b);
-  HEAP16 = new Int16Array(b);
-  HEAPU8 = new Uint8Array(b);
-  HEAPU16 = new Uint16Array(b);
-  HEAP32 = new Int32Array(b);
-  HEAPU32 = new Uint32Array(b);
-  HEAPF32 = new Float32Array(b);
-  HEAPF64 = new Float64Array(b);
-  HEAP64 = new BigInt64Array(b);
-  HEAPU64 = new BigUint64Array(b);
+  Module['HEAP8'] = HEAP8 = new Int8Array(b);
+  Module['HEAP16'] = HEAP16 = new Int16Array(b);
+  Module['HEAPU8'] = HEAPU8 = new Uint8Array(b);
+  Module['HEAPU16'] = HEAPU16 = new Uint16Array(b);
+  Module['HEAP32'] = HEAP32 = new Int32Array(b);
+  Module['HEAPU32'] = HEAPU32 = new Uint32Array(b);
+  Module['HEAPF32'] = HEAPF32 = new Float32Array(b);
+  Module['HEAPF64'] = HEAPF64 = new Float64Array(b);
+  Module['HEAP64'] = HEAP64 = new BigInt64Array(b);
+  Module['HEAPU64'] = HEAPU64 = new BigUint64Array(b);
 }
 
 // include: memoryprofiler.js
@@ -937,412 +937,21 @@ Module['FS_createPreloadedFile'] = FS.createPreloadedFile;
 }
 
 // Begin runtime exports
-  var missingLibrarySymbols = [
-  'writeI53ToI64',
-  'writeI53ToI64Clamped',
-  'writeI53ToI64Signaling',
-  'writeI53ToU64Clamped',
-  'writeI53ToU64Signaling',
-  'readI53FromI64',
-  'readI53FromU64',
-  'convertI32PairToI53',
-  'convertI32PairToI53Checked',
-  'convertU32PairToI53',
-  'bigintToI53Checked',
-  'stackAlloc',
-  'getTempRet0',
-  'setTempRet0',
-  'zeroMemory',
-  'exitJS',
-  'getHeapMax',
-  'abortOnCannotGrowMemory',
-  'growMemory',
-  'withStackSave',
-  'strError',
-  'inetPton4',
-  'inetNtop4',
-  'inetPton6',
-  'inetNtop6',
-  'readSockaddr',
-  'writeSockaddr',
-  'readEmAsmArgs',
-  'jstoi_q',
-  'getExecutableName',
-  'autoResumeAudioContext',
-  'getDynCaller',
-  'dynCall',
-  'handleException',
-  'keepRuntimeAlive',
-  'runtimeKeepalivePush',
-  'runtimeKeepalivePop',
-  'callUserCallback',
-  'maybeExit',
-  'asmjsMangle',
-  'asyncLoad',
-  'alignMemory',
-  'mmapAlloc',
-  'HandleAllocator',
-  'getNativeTypeSize',
-  'getUniqueRunDependency',
-  'addOnInit',
-  'addOnPostCtor',
-  'addOnPreMain',
-  'addOnExit',
-  'STACK_SIZE',
-  'STACK_ALIGN',
-  'POINTER_SIZE',
-  'ASSERTIONS',
-  'ccall',
-  'cwrap',
-  'convertJsFunctionToWasm',
-  'getEmptyTableSlot',
-  'updateTableMap',
-  'getFunctionAddress',
-  'addFunction',
-  'removeFunction',
-  'UTF8ArrayToString',
-  'UTF8ToString',
-  'stringToUTF8Array',
-  'stringToUTF8',
-  'lengthBytesUTF8',
-  'intArrayFromString',
-  'intArrayToString',
-  'AsciiToString',
-  'stringToAscii',
-  'UTF16ToString',
-  'stringToUTF16',
-  'lengthBytesUTF16',
-  'UTF32ToString',
-  'stringToUTF32',
-  'lengthBytesUTF32',
-  'stringToNewUTF8',
-  'stringToUTF8OnStack',
-  'writeArrayToMemory',
-  'registerKeyEventCallback',
-  'maybeCStringToJsString',
-  'findEventTarget',
-  'getBoundingClientRect',
-  'fillMouseEventData',
-  'registerMouseEventCallback',
-  'registerWheelEventCallback',
-  'registerUiEventCallback',
-  'registerFocusEventCallback',
-  'fillDeviceOrientationEventData',
-  'registerDeviceOrientationEventCallback',
-  'fillDeviceMotionEventData',
-  'registerDeviceMotionEventCallback',
-  'screenOrientation',
-  'fillOrientationChangeEventData',
-  'registerOrientationChangeEventCallback',
-  'fillFullscreenChangeEventData',
-  'registerFullscreenChangeEventCallback',
-  'JSEvents_requestFullscreen',
-  'JSEvents_resizeCanvasForFullscreen',
-  'registerRestoreOldStyle',
-  'hideEverythingExceptGivenElement',
-  'restoreHiddenElements',
-  'setLetterbox',
-  'softFullscreenResizeWebGLRenderTarget',
-  'doRequestFullscreen',
-  'fillPointerlockChangeEventData',
-  'registerPointerlockChangeEventCallback',
-  'registerPointerlockErrorEventCallback',
-  'requestPointerLock',
-  'fillVisibilityChangeEventData',
-  'registerVisibilityChangeEventCallback',
-  'registerTouchEventCallback',
-  'fillGamepadEventData',
-  'registerGamepadEventCallback',
-  'registerBeforeUnloadEventCallback',
-  'fillBatteryEventData',
-  'registerBatteryEventCallback',
-  'setCanvasElementSize',
-  'getCanvasElementSize',
-  'jsStackTrace',
-  'getCallstack',
-  'convertPCtoSourceLocation',
-  'getEnvStrings',
-  'checkWasiClock',
-  'flush_NO_FILESYSTEM',
-  'wasiRightsToMuslOFlags',
-  'wasiOFlagsToMuslOFlags',
-  'initRandomFill',
-  'randomFill',
-  'safeSetTimeout',
-  'setImmediateWrapped',
-  'safeRequestAnimationFrame',
-  'clearImmediateWrapped',
-  'registerPostMainLoop',
-  'registerPreMainLoop',
-  'getPromise',
-  'makePromise',
-  'idsToPromises',
-  'makePromiseCallback',
-  'ExceptionInfo',
-  'findMatchingCatch',
-  'Browser_asyncPrepareDataCounter',
-  'isLeapYear',
-  'ydayFromDate',
-  'arraySum',
-  'addDays',
-  'getSocketFromFD',
-  'getSocketAddress',
-  'FS_createPreloadedFile',
-  'FS_modeStringToFlags',
-  'FS_getMode',
-  'FS_stdin_getChar',
-  'FS_mkdirTree',
-  '_setNetworkCallback',
-  'heapObjectForWebGLType',
-  'toTypedArrayIndex',
-  'webgl_enable_ANGLE_instanced_arrays',
-  'webgl_enable_OES_vertex_array_object',
-  'webgl_enable_WEBGL_draw_buffers',
-  'webgl_enable_WEBGL_multi_draw',
-  'webgl_enable_EXT_polygon_offset_clamp',
-  'webgl_enable_EXT_clip_control',
-  'webgl_enable_WEBGL_polygon_mode',
-  'emscriptenWebGLGet',
-  'computeUnpackAlignedImageSize',
-  'colorChannelsInGlTextureFormat',
-  'emscriptenWebGLGetTexPixelData',
-  'emscriptenWebGLGetUniform',
-  'webglGetUniformLocation',
-  'webglPrepareUniformLocationsBeforeFirstUse',
-  'webglGetLeftBracePos',
-  'emscriptenWebGLGetVertexAttrib',
-  '__glGetActiveAttribOrUniform',
-  'writeGLArray',
-  'registerWebGlEventCallback',
-  'runAndAbortIfError',
-  'ALLOC_NORMAL',
-  'ALLOC_STACK',
-  'allocate',
-  'writeStringToMemory',
-  'writeAsciiToMemory',
-  'demangle',
-  'stackTrace',
-];
-missingLibrarySymbols.forEach(missingLibrarySymbol)
-
-  var unexportedSymbols = [
-  'run',
-  'addRunDependency',
-  'removeRunDependency',
-  'out',
-  'err',
-  'callMain',
-  'abort',
-  'wasmMemory',
-  'wasmExports',
-  'HEAPF32',
-  'HEAPF64',
-  'HEAP8',
-  'HEAPU8',
-  'HEAP16',
-  'HEAPU16',
-  'HEAP32',
-  'HEAPU32',
-  'HEAP64',
-  'HEAPU64',
-  'writeStackCookie',
-  'checkStackCookie',
-  'INT53_MAX',
-  'INT53_MIN',
-  'stackSave',
-  'stackRestore',
-  'ptrToString',
-  'ENV',
-  'ERRNO_CODES',
-  'DNS',
-  'Protocols',
-  'Sockets',
-  'timers',
-  'warnOnce',
-  'readEmAsmArgsArray',
-  'wasmTable',
-  'noExitRuntime',
-  'addOnPreRun',
-  'addOnPostRun',
-  'freeTableIndexes',
-  'functionsInTableMap',
-  'setValue',
-  'getValue',
-  'PATH',
-  'PATH_FS',
-  'UTF8Decoder',
-  'UTF16Decoder',
-  'JSEvents',
-  'specialHTMLTargets',
-  'findCanvasEventTarget',
-  'currentFullscreenStrategy',
-  'restoreOldWindowedStyle',
-  'UNWIND_CACHE',
-  'ExitStatus',
-  'emSetImmediate',
-  'emClearImmediate_deps',
-  'emClearImmediate',
-  'promiseMap',
-  'uncaughtExceptionCount',
-  'exceptionLast',
-  'exceptionCaught',
-  'Browser',
-  'requestFullscreen',
-  'requestFullScreen',
-  'setCanvasSize',
-  'getUserMedia',
-  'createContext',
-  'getPreloadedImageData__data',
-  'wget',
-  'MONTH_DAYS_REGULAR',
-  'MONTH_DAYS_LEAP',
-  'MONTH_DAYS_REGULAR_CUMULATIVE',
-  'MONTH_DAYS_LEAP_CUMULATIVE',
-  'SYSCALLS',
-  'preloadPlugins',
-  'FS_stdin_getChar_buffer',
-  'FS_unlink',
-  'FS_createPath',
-  'FS_createDevice',
-  'FS_readFile',
-  'FS',
-  'FS_root',
-  'FS_mounts',
-  'FS_devices',
-  'FS_streams',
-  'FS_nextInode',
-  'FS_nameTable',
-  'FS_currentPath',
-  'FS_initialized',
-  'FS_ignorePermissions',
-  'FS_filesystems',
-  'FS_syncFSRequests',
-  'FS_readFiles',
-  'FS_lookupPath',
-  'FS_getPath',
-  'FS_hashName',
-  'FS_hashAddNode',
-  'FS_hashRemoveNode',
-  'FS_lookupNode',
-  'FS_createNode',
-  'FS_destroyNode',
-  'FS_isRoot',
-  'FS_isMountpoint',
-  'FS_isFile',
-  'FS_isDir',
-  'FS_isLink',
-  'FS_isChrdev',
-  'FS_isBlkdev',
-  'FS_isFIFO',
-  'FS_isSocket',
-  'FS_flagsToPermissionString',
-  'FS_nodePermissions',
-  'FS_mayLookup',
-  'FS_mayCreate',
-  'FS_mayDelete',
-  'FS_mayOpen',
-  'FS_checkOpExists',
-  'FS_nextfd',
-  'FS_getStreamChecked',
-  'FS_getStream',
-  'FS_createStream',
-  'FS_closeStream',
-  'FS_dupStream',
-  'FS_doSetAttr',
-  'FS_chrdev_stream_ops',
-  'FS_major',
-  'FS_minor',
-  'FS_makedev',
-  'FS_registerDevice',
-  'FS_getDevice',
-  'FS_getMounts',
-  'FS_syncfs',
-  'FS_mount',
-  'FS_unmount',
-  'FS_lookup',
-  'FS_mknod',
-  'FS_statfs',
-  'FS_statfsStream',
-  'FS_statfsNode',
-  'FS_create',
-  'FS_mkdir',
-  'FS_mkdev',
-  'FS_symlink',
-  'FS_rename',
-  'FS_rmdir',
-  'FS_readdir',
-  'FS_readlink',
-  'FS_stat',
-  'FS_fstat',
-  'FS_lstat',
-  'FS_doChmod',
-  'FS_chmod',
-  'FS_lchmod',
-  'FS_fchmod',
-  'FS_doChown',
-  'FS_chown',
-  'FS_lchown',
-  'FS_fchown',
-  'FS_doTruncate',
-  'FS_truncate',
-  'FS_ftruncate',
-  'FS_utime',
-  'FS_open',
-  'FS_close',
-  'FS_isClosed',
-  'FS_llseek',
-  'FS_read',
-  'FS_write',
-  'FS_mmap',
-  'FS_msync',
-  'FS_ioctl',
-  'FS_writeFile',
-  'FS_cwd',
-  'FS_chdir',
-  'FS_createDefaultDirectories',
-  'FS_createDefaultDevices',
-  'FS_createSpecialDirectories',
-  'FS_createStandardStreams',
-  'FS_staticInit',
-  'FS_init',
-  'FS_quit',
-  'FS_findObject',
-  'FS_analyzePath',
-  'FS_createFile',
-  'FS_createDataFile',
-  'FS_forceLoadFile',
-  'FS_createLazyFile',
-  'FS_absolutePath',
-  'FS_createFolder',
-  'FS_createLink',
-  'FS_joinPath',
-  'FS_mmapAlloc',
-  'FS_standardizePath',
-  'MEMFS',
-  'TTY',
-  'PIPEFS',
-  'SOCKFS',
-  'tempFixedLengthArray',
-  'miniTempWebGLFloatBuffers',
-  'miniTempWebGLIntBuffers',
-  'GL',
-  'AL',
-  'GLUT',
-  'EGL',
-  'GLEW',
-  'IDBStore',
-  'SDL',
-  'SDL_gfx',
-  'allocateUTF8',
-  'allocateUTF8OnStack',
-  'print',
-  'printErr',
-  'jstoi_s',
-];
-unexportedSymbols.forEach(unexportedRuntimeSymbol);
-
   // End runtime exports
   // Begin JS library exports
+  Module['ExitStatus'] = ExitStatus;
+  Module['addOnPostRun'] = addOnPostRun;
+  Module['onPostRuns'] = onPostRuns;
+  Module['callRuntimeCallbacks'] = callRuntimeCallbacks;
+  Module['addOnPreRun'] = addOnPreRun;
+  Module['onPreRuns'] = onPreRuns;
+  Module['getValue'] = getValue;
+  Module['noExitRuntime'] = noExitRuntime;
+  Module['ptrToString'] = ptrToString;
+  Module['setValue'] = setValue;
+  Module['stackRestore'] = stackRestore;
+  Module['stackSave'] = stackSave;
+  Module['warnOnce'] = warnOnce;
   // End JS library exports
 
 // end include: postlibrary.js
@@ -1352,28 +961,24 @@ function checkIncomingModuleAPI() {
 }
 
 // Imports from the Wasm binary.
-var _add = Module['_add'] = makeInvalidEarlyAccess('_add');
-var _multiply = Module['_multiply'] = makeInvalidEarlyAccess('_multiply');
-var _fflush = makeInvalidEarlyAccess('_fflush');
-var _emscripten_stack_init = makeInvalidEarlyAccess('_emscripten_stack_init');
-var _emscripten_stack_get_free = makeInvalidEarlyAccess('_emscripten_stack_get_free');
-var _emscripten_stack_get_base = makeInvalidEarlyAccess('_emscripten_stack_get_base');
-var _emscripten_stack_get_end = makeInvalidEarlyAccess('_emscripten_stack_get_end');
-var __emscripten_stack_restore = makeInvalidEarlyAccess('__emscripten_stack_restore');
-var __emscripten_stack_alloc = makeInvalidEarlyAccess('__emscripten_stack_alloc');
-var _emscripten_stack_get_current = makeInvalidEarlyAccess('_emscripten_stack_get_current');
+var _fflush = Module['_fflush'] = makeInvalidEarlyAccess('_fflush');
+var _emscripten_stack_init = Module['_emscripten_stack_init'] = makeInvalidEarlyAccess('_emscripten_stack_init');
+var _emscripten_stack_get_free = Module['_emscripten_stack_get_free'] = makeInvalidEarlyAccess('_emscripten_stack_get_free');
+var _emscripten_stack_get_base = Module['_emscripten_stack_get_base'] = makeInvalidEarlyAccess('_emscripten_stack_get_base');
+var _emscripten_stack_get_end = Module['_emscripten_stack_get_end'] = makeInvalidEarlyAccess('_emscripten_stack_get_end');
+var __emscripten_stack_restore = Module['__emscripten_stack_restore'] = makeInvalidEarlyAccess('__emscripten_stack_restore');
+var __emscripten_stack_alloc = Module['__emscripten_stack_alloc'] = makeInvalidEarlyAccess('__emscripten_stack_alloc');
+var _emscripten_stack_get_current = Module['_emscripten_stack_get_current'] = makeInvalidEarlyAccess('_emscripten_stack_get_current');
 
 function assignWasmExports(wasmExports) {
-  Module['_add'] = _add = createExportWrapper('add', 2);
-  Module['_multiply'] = _multiply = createExportWrapper('multiply', 2);
-  _fflush = createExportWrapper('fflush', 1);
-  _emscripten_stack_init = wasmExports['emscripten_stack_init'];
-  _emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'];
-  _emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'];
-  _emscripten_stack_get_end = wasmExports['emscripten_stack_get_end'];
-  __emscripten_stack_restore = wasmExports['_emscripten_stack_restore'];
-  __emscripten_stack_alloc = wasmExports['_emscripten_stack_alloc'];
-  _emscripten_stack_get_current = wasmExports['emscripten_stack_get_current'];
+  Module['_fflush'] = _fflush = createExportWrapper('fflush', 1);
+  Module['_emscripten_stack_init'] = _emscripten_stack_init = wasmExports['emscripten_stack_init'];
+  Module['_emscripten_stack_get_free'] = _emscripten_stack_get_free = wasmExports['emscripten_stack_get_free'];
+  Module['_emscripten_stack_get_base'] = _emscripten_stack_get_base = wasmExports['emscripten_stack_get_base'];
+  Module['_emscripten_stack_get_end'] = _emscripten_stack_get_end = wasmExports['emscripten_stack_get_end'];
+  Module['__emscripten_stack_restore'] = __emscripten_stack_restore = wasmExports['_emscripten_stack_restore'];
+  Module['__emscripten_stack_alloc'] = __emscripten_stack_alloc = wasmExports['_emscripten_stack_alloc'];
+  Module['_emscripten_stack_get_current'] = _emscripten_stack_get_current = wasmExports['emscripten_stack_get_current'];
 }
 var wasmImports = {
   

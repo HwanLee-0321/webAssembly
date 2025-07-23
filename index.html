@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebAssembly Test</title>
+</head>
+<body>
+    <h1>WebAssembly Add Example</h1>
+    <p>Result of add(5, 3): <span id="addResult"></span></p>
+    <p>Result of multiply(5, 3): <span id="multiplyResult"></span></p>
+
+    <script type="module">
+        // add.js 파일이 WebAssembly 모듈을 로드하고 초기화하는 역할을 해요.
+        // Module 객체는 Emscripten이 만들어주는 전역 객체고요.
+        // 우리는 Module._add랑 Module._multiply를 통해 C 함수에 접근하는 겁니다.
+        import Module from './add.js';
+
+        Module.onRuntimeInitialized = () => {
+            const addResult = Module._add(5, 3);
+            document.getElementById('addResult').textContent = addResult;
+            console.log("5 + 3 =", addResult);
+
+            const multiplyResult = Module._multiply(5, 3);
+            document.getElementById('multiplyResult').textContent = multiplyResult;
+            console.log("5 * 3 =", multiplyResult);
+        };
+    </script>
+</body>
+</html>
