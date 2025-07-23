@@ -2,7 +2,7 @@
 
 이 프로젝트는 C 함수를 WebAssembly(Wasm)로 컴파일하고 JavaScript를 사용하여 웹 페이지 내에서 사용하는 방법을 보여주는 간단한 예제입니다.
 
-[관련글](https://velog.io/@hwan_lee/%EC%96%B4%EC%85%88%EB%B8%94%EB%A6%AC%EB%A1%9C-%EC%9B%B9-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+[관련글](https://velog.io/@hwan_lee/%EC%96%B4%EC%85%88%EB%B8%94%EB%A6%AC%EB%A1%9C-%EC%9B%B9-%EB%A7%8C%EB%93%A4%EA%B8%B0) | [ENG README](https://github.com/HwanLee-0321/webAssembly)
 
 ## 📂 파일 설명
 

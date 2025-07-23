@@ -2,7 +2,7 @@
 
 This project is a simple demonstration of how to compile a C function into WebAssembly (Wasm) and use it within a web page using JavaScript.
 
-[About Post](https://velog.io/@hwan_lee/%EC%96%B4%EC%85%88%EB%B8%94%EB%A6%AC%EB%A1%9C-%EC%9B%B9-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+[About Post](https://velog.io/@hwan_lee/%EC%96%B4%EC%85%88%EB%B8%94%EB%A6%AC%EB%A1%9C-%EC%9B%B9-%EB%A7%8C%EB%93%A4%EA%B8%B0) | [한국어버전 README](https://github.com/HwanLee-0321/webAssembly/blob/main/README(KOR).md)
 
 ## 📂 File Descriptions
 
